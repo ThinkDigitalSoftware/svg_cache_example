@@ -94,14 +94,22 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            SvgPicture.network(
+            Image.network(// regular image outside of Markdown imageBuilder
+                'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png'),
+            SvgPicture.network(// SVG image outside of Markdown imageBuilder
                 'https://api.travis-ci.org/rrousselGit/provider.svg?branch=master'),
             Expanded(
               child: Markdown(
                 data:
                     '![svg image](https://api.travis-ci.org/rrousselGit/provider.svg?branch=master)',
                 imageBuilder: (uri) {
-                  return SvgPicture.network(uri.toString());
+                  return Column(
+                    children: <Widget>[
+                      Image.network(// regular image
+                          'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png'),
+                      SvgPicture.network(uri.toString()) //  svg Image
+                    ],
+                  );
                 },
               ),
             )
